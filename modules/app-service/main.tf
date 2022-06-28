@@ -51,9 +51,9 @@ resource "azurerm_linux_web_app" "application" {
     application_stack {
       node_version = "16-lts"
     }
-    app_command_line          = "npm run start:prod"
-    always_on                 = false
-    ftps_state                = "FtpsOnly"
+    app_command_line = "npm run start"
+    always_on        = false
+    ftps_state       = "FtpsOnly"
   }
 
   app_settings = {
@@ -65,5 +65,16 @@ resource "azurerm_linux_web_app" "application" {
     "APPINSIGHTS_INSTRUMENTATIONKEY" = var.azure_application_insights_instrumentation_key
 
     # These are app specific environment variables
+  }
+  logs {
+    detailed_error_messages = true
+    failed_request_tracing  = true
+
+    http_logs {
+      file_system {
+        retention_in_days = 0
+        retention_in_mb   = 35
+      }
+    }
   }
 }
