@@ -23,7 +23,6 @@ resource "azurerm_resource_group" "main" {
     "terraform"        = "true"
     "environment"      = local.environment
     "application-name" = var.application_name
-    "nubesgen-version" = "0.11.5"
   }
 }
 
